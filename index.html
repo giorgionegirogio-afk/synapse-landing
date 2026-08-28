@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synapse — Fatti trovare dai motori AI e non perdere più clienti</title>
+<meta name="description" content="Synapse aiuta le attività locali a essere raccomandate da ChatGPT, Perplexity e Gemini, e risponde ai clienti con un assistente AI che prende le prenotazioni al posto tuo.">
+<!-- NOTA: pagina statica pronta per deploy su hosting free-tier (Cloudflare Pages / GitHub Pages / Vercel).
+     Il deploy NON è ancora stato eseguito: richiede la creazione di un account (vedi docs/piano-azione.md).
+     I prezzi indicati sono IPOTESI DA VALIDARE (vedi docs/pricing-ipotesi.md) e sono etichettati come tali. -->
+<style>
+  :root { color-scheme: light dark; --verde: #14532d; --verde2: #16a34a; font-family: system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; line-height: 1.55; background: Canvas; color: CanvasText; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.2rem; }
+  header.hero { background: linear-gradient(135deg, var(--verde), #052e16); color: #fff; padding: 4rem 0 3rem; }
+  .hero h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); margin: 0 0 1rem; max-width: 26ch; }
+  .hero p { max-width: 60ch; font-size: 1.1rem; opacity: .95; }
+  .cta { display: inline-block; margin-top: 1.4rem; padding: .8rem 1.6rem; background: var(--verde2); color: #fff; border-radius: .6rem; text-decoration: none; font-weight: 600; }
+  .cta.secondaria { background: transparent; border: 1px solid #fff8; margin-left: .6rem; }
+  section { padding: 3rem 0; }
+  section:nth-of-type(even) { background: color-mix(in srgb, CanvasText 4%, Canvas); }
+  h2 { font-size: 1.5rem; }
+  .griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+  .card { border: 1px solid color-mix(in srgb, CanvasText 15%, Canvas); border-radius: .8rem; padding: 1.2rem; background: Canvas; }
+  .card h3 { margin-top: 0; }
+  .badge-ipotesi { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .03em; background: #b45309; color: #fff; padding: .15rem .5rem; border-radius: .4rem; vertical-align: middle; }
+  .prezzo { font-size: 1.7rem; font-weight: 700; margin: .4rem 0; }
+  ol li, ul li { margin-bottom: .5rem; }
+  footer { padding: 2rem 0 3rem; font-size: .85rem; opacity: .8; border-top: 1px solid color-mix(in srgb, CanvasText 12%, Canvas); }
+  .nota { font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Se un cliente chiede a ChatGPT, tu ci sei?</h1>
+    <p>Quando qualcuno chiede a un motore AI un consiglio su dove mangiare o da chi farsi tagliare
+    i capelli, la risposta nomina poche attività: quelle che i motori riescono a leggere e capire.
+    <strong>Synapse</strong> analizza come la tua attività appare a ChatGPT, Perplexity
+    e Gemini, sistema quello che non va e ti affianca un <strong>assistente AI</strong> che risponde
+    ai clienti e prende le prenotazioni — anche quando sei chiuso.</p>
+    <a class="cta" href="#audit">Richiedi l’audit gratuito</a>
+    <a class="cta secondaria" href="#come">Come funziona</a>
+  </div>
+</header>
+
+<section id="problema">
+  <div class="wrap">
+    <h2>Il problema, in due righe</h2>
+    <p>Se un potenziale cliente chiede a un motore AI «qual è il miglior <em>[la tua categoria]</em>
+    a <em>[la tua città]</em>?» e la risposta non ti nomina, quel cliente va da un concorrente.
+    E i motori AI tendono a raccomandare le attività che riescono a <strong>leggere e
+    capire</strong> — dati strutturati, risposte alle domande frequenti, informazioni chiare.</p>
+  </div>
+</section>
+
+<section id="come">
+  <div class="wrap">
+    <h2>Come funziona</h2>
+    <div class="griglia">
+      <div class="card">
+        <h3>1. Audit di visibilità AI</h3>
+        <p>Analizziamo il tuo sito con 15 controlli specifici per i motori AI e ti diciamo, in un
+        report leggibile, cosa sistemare e in che ordine.</p>
+      </div>
+      <div class="card">
+        <h3>2. Correzioni pronte da incollare</h3>
+        <p>Ti consegniamo il markup Schema.org già compilato per la tua attività e le FAQ da
+        pubblicare: il tuo webmaster (o noi) le incolla in dieci minuti.</p>
+      </div>
+      <div class="card">
+        <h3>3. Assistente AI per i clienti</h3>
+        <p>Un assistente che risponde su web e Telegram a orari, prezzi e prenotazioni, e ti
+        consegna nome e numero di ogni richiesta. Sempre con l’avviso trasparente che si sta
+        parlando con un’AI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="audit">
+  <div class="wrap">
+    <h2>Richiedi l’audit gratuito</h2>
+    <p>Nella fase pilota l’audit è <strong>gratuito e fatto a mano</strong>: ci mandi l’indirizzo del
+    tuo sito, ti rispondiamo con il report completo entro 48 ore. Nessun impegno.</p>
+    <p class="nota">[CANALE DI CONTATTO — DA ATTIVARE: modulo/email verranno collegati quando il
+    dominio sarà attivo. In fase pilota il contatto avviene direttamente con il fondatore.]</p>
+  </div>
+</section>
+
+<section id="prezzi">
+  <div class="wrap">
+    <h2>Prezzi <span class="badge-ipotesi">IPOTESI DA VALIDARE</span></h2>
+    <p class="nota">Questi prezzi sono ipotesi in corso di validazione con i primi clienti pilota
+    (vedi la nostra metodologia in docs/pricing-ipotesi.md). I clienti pilota della prima fase
+    non pagano nulla.</p>
+    <div class="griglia">
+      <div class="card">
+        <h3>Gratis</h3>
+        <div class="prezzo">0 €</div>
+        <ul>
+          <li>1 audit di visibilità AI</li>
+          <li>Report con priorità d’intervento</li>
+          <li>Schema.org di base da incollare</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Pro <span class="badge-ipotesi">IPOTESI</span></h3>
+        <div class="prezzo">~79–99 €/mese</div>
+        <ul>
+          <li>Assistente AI su web e Telegram</li>
+          <li>Lead e prenotazioni raccolti per te</li>
+          <li>Audit e correzioni ricorrenti</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Multi-sede</h3>
+        <div class="prezzo">su misura</div>
+        <ul>
+          <li>Più sedi, più canali</li>
+          <li>In roadmap: vedi piano di crescita</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>⚡ Synapse — GEO Discovery &amp; AI Dispatcher per attività locali.</p>
+    <p>Trasparenza: gli assistenti Synapse dichiarano sempre di essere un’intelligenza artificiale
+    (art. 50 EU AI Act). I dati raccolti servono solo a gestire le richieste dei clienti e possono
+    essere cancellati su semplice richiesta (GDPR).</p>
+    <p class="nota">[RAGIONE SOCIALE E P.IVA — DA INSERIRE QUANDO DISPONIBILI]</p>
+  </div>
+</footer>
+
+</body>
+</html>
