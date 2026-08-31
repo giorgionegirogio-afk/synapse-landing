@@ -6,7 +6,7 @@
 
 ## Servizi
 
-- Audit di visibilità AI: 15 controlli on-site (dati strutturati, FAQ, accesso dei crawler AI,
+- Audit di visibilità AI: 42 controlli in 5 aree (dati strutturati, FAQ, accesso dei crawler AI,
   contatti in chiaro) con punteggio 0-100, report con priorità d'intervento e markup Schema.org
   già compilato. L'audit iniziale è gratuito e senza impegno.
 - Piano Visibilità (29 €/mese o 290 €/anno): audit ricorrente, correzioni aggiornate,
