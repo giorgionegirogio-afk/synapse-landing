@@ -3,139 +3,693 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Replivy — Fatti trovare dai motori AI e non perdere più clienti</title>
-<meta name="description" content="Replivy aiuta le attività locali a essere raccomandate da ChatGPT, Perplexity e Gemini, e risponde ai clienti con un assistente AI che prende le prenotazioni al posto tuo.">
-<!-- NOTA: pagina statica pronta per deploy su hosting free-tier (Cloudflare Pages / GitHub Pages / Vercel).
-     Il deploy NON è ancora stato eseguito: richiede la creazione di un account (vedi docs/piano-azione.md).
-     I prezzi indicati sono IPOTESI DA VALIDARE (vedi docs/pricing-ipotesi.md) e sono etichettati come tali. -->
+<title>Replivy — Visibilità AI e assistente clienti per attività locali</title>
+<meta name="description" content="Audit di visibilità AI in 15 controlli, correzioni pronte da incollare e un assistente che risponde ai clienti anche quando sei chiuso. Fase pilota gratuita.">
+<meta property="og:title" content="Replivy — Se un cliente lo chiede a ChatGPT, la risposta fa il tuo nome?">
+<meta property="og:description" content="Audit di visibilità AI in 15 controlli, correzioni pronte da incollare e un assistente che risponde ai clienti anche quando sei chiuso. Fase pilota gratuita.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<!-- NOTA INTERNA: pagina statica, ZERO risorse esterne (niente font, CDN, tracker di terzi).
+     I prezzi sono IPOTESI DA VALIDARE (docs/pricing-ipotesi.md) e sono etichettati come tali.
+     Le statistiche citate vengono SOLO dai 6 audit reali di Milano (reports/) e da docs/ricerca.md.
+     Analytics: first-party, anonima, aggregata, senza cookie; beacon DORMIENTE (endpoint: null),
+     da attivare solo dopo il primo cliente (decisione fondatore 31/08/2026). Debug: ?stats=1 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Replivy",
+  "description": "Audit di visibilità sui motori AI e assistente clienti conversazionale per attività locali italiane.",
+  "url": "https://giorgionegirogio-afk.github.io/synapse-landing/",
+  "areaServed": "IT",
+  "knowsLanguage": "it"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Che cos’è un audit di visibilità AI?",
+      "acceptedAnswer": { "@type": "Answer", "text": "È un’analisi in 15 controlli di come i motori AI (ChatGPT, Perplexity, Gemini) riescono a leggere e capire il sito di un’attività: dati strutturati, FAQ, contatti in chiaro, accesso dei crawler AI e altro. Il risultato è un punteggio da 0 a 100 e un report con le correzioni in ordine di priorità." } },
+    { "@type": "Question", "name": "Quanto costa?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nella fase pilota l’audit è gratuito e i primi clienti pilota non pagano nulla. Il listino successivo è dichiarato apertamente come ipotesi in corso di validazione." } },
+    { "@type": "Question", "name": "Mi garantite che ChatGPT raccomanderà la mia attività?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No, e diffida di chi lo garantisce: nessuno controlla le risposte dei motori AI. Lavoriamo su ciò che è controllabile — la leggibilità del sito per i motori — e misuriamo prima e dopo con test documentati." } },
+    { "@type": "Question", "name": "L’assistente AI si spaccia per una persona?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Mai: si presenta sempre come assistente AI, come richiede l’art. 50 del Regolamento europeo sull’AI, e su richiesta passa la conversazione a un operatore umano." } },
+    { "@type": "Question", "name": "Che dati raccogliete sui miei clienti?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Il minimo necessario a gestire la richiesta: nome e recapito. Il cliente può ottenere la cancellazione scrivendo semplicemente “cancella i miei dati” in chat, come previsto dal GDPR." } },
+    { "@type": "Question", "name": "Questo sito mi traccia?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Niente cookie, niente servizi di terze parti: solo statistiche anonime e aggregate che restano nel browser del visitatore. Nessun dato personale lascia questa pagina." } },
+    { "@type": "Question", "name": "Devo rifare il sito o cambiare agenzia?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Consegniamo correzioni pronte da incollare (markup Schema.org già compilato e FAQ da pubblicare): chi gestisce oggi il tuo sito le applica in pochi minuti." } }
+  ]
+}
+</script>
 <style>
-  :root { color-scheme: light dark; --verde: #14532d; --verde2: #16a34a; font-family: system-ui, sans-serif; }
+  :root {
+    --carta: #faf6ef;
+    --carta-2: #fffdf8;
+    --inchiostro: #201d1a;
+    --inchiostro-2: #57504a;
+    --linea: #e5dccd;
+    --accento: #b6431d;
+    --accento-scuro: #8f3315;
+    --salvia: #2f6b4f;
+    --oro: #b48a2f;
+    --ombra: 0 1px 2px rgb(32 29 26 / .05), 0 8px 28px rgb(32 29 26 / .07);
+    --serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --carta: #16151a;
+      --carta-2: #1e1d23;
+      --inchiostro: #ece7de;
+      --inchiostro-2: #a9a29a;
+      --linea: #322f38;
+      --accento: #e0703f;
+      --accento-scuro: #c85a2b;
+      --salvia: #6dbb92;
+      --oro: #d3a94e;
+      --ombra: 0 1px 2px rgb(0 0 0 / .3), 0 8px 28px rgb(0 0 0 / .35);
+    }
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; line-height: 1.55; background: Canvas; color: CanvasText; }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.2rem; }
-  header.hero { background: linear-gradient(135deg, var(--verde), #052e16); color: #fff; padding: 4rem 0 3rem; }
-  .hero h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); margin: 0 0 1rem; max-width: 26ch; }
-  .hero p { max-width: 60ch; font-size: 1.1rem; opacity: .95; }
-  .cta { display: inline-block; margin-top: 1.4rem; padding: .8rem 1.6rem; background: var(--verde2); color: #fff; border-radius: .6rem; text-decoration: none; font-weight: 600; }
-  .cta.secondaria { background: transparent; border: 1px solid #fff8; margin-left: .6rem; }
-  section { padding: 3rem 0; }
-  section:nth-of-type(even) { background: color-mix(in srgb, CanvasText 4%, Canvas); }
-  h2 { font-size: 1.5rem; }
-  .griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
-  .card { border: 1px solid color-mix(in srgb, CanvasText 15%, Canvas); border-radius: .8rem; padding: 1.2rem; background: Canvas; }
-  .card h3 { margin-top: 0; }
-  .badge-ipotesi { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .03em; background: #b45309; color: #fff; padding: .15rem .5rem; border-radius: .4rem; vertical-align: middle; }
-  .prezzo { font-size: 1.7rem; font-weight: 700; margin: .4rem 0; }
-  ol li, ul li { margin-bottom: .5rem; }
-  footer { padding: 2rem 0 3rem; font-size: .85rem; opacity: .8; border-top: 1px solid color-mix(in srgb, CanvasText 12%, Canvas); }
-  .nota { font-size: .85rem; opacity: .75; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--carta); color: var(--inchiostro); font-family: var(--sans); line-height: 1.6; font-size: 1rem; -webkit-text-size-adjust: 100%; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 1.3rem; }
+  a { color: var(--accento); }
+  h1, h2, h3, .wordmark { font-family: var(--serif); letter-spacing: -.01em; }
+  h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); line-height: 1.2; margin: 0 0 .8rem; }
+  h3 { font-size: 1.12rem; margin: 0 0 .4rem; }
+  .eyebrow { font-family: var(--sans); font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accento); margin: 0 0 .8rem; }
+  section { padding: 4.2rem 0; border-top: 1px solid var(--linea); }
+  .lead { font-size: 1.08rem; color: var(--inchiostro-2); max-width: 62ch; }
+  .nota { font-size: .84rem; color: var(--inchiostro-2); }
+
+  /* ---------- topbar ---------- */
+  .topbar { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--carta) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linea); }
+  .topbar .wrap { display: flex; align-items: center; gap: 1.4rem; padding-top: .7rem; padding-bottom: .7rem; }
+  .wordmark { font-size: 1.35rem; font-weight: 700; text-decoration: none; color: var(--inchiostro); }
+  .wordmark b { color: var(--accento); }
+  nav.principale { margin-left: auto; display: flex; gap: 1.1rem; flex-wrap: wrap; }
+  nav.principale a { color: var(--inchiostro-2); text-decoration: none; font-size: .92rem; font-weight: 500; }
+  nav.principale a:hover { color: var(--accento); }
+  .btn { display: inline-block; padding: .78rem 1.5rem; border-radius: .55rem; font-weight: 650; text-decoration: none; font-size: .97rem; border: 1px solid transparent; }
+  .btn.pieno { background: var(--accento); color: #fff; box-shadow: var(--ombra); }
+  .btn.pieno:hover { background: var(--accento-scuro); }
+  .btn.vuoto { border-color: var(--linea); color: var(--inchiostro); background: var(--carta-2); }
+  .topbar .btn { padding: .5rem 1rem; font-size: .88rem; }
+  @media (max-width: 720px) { nav.principale { display: none; } .topbar .btn { margin-left: auto; } }
+
+  /* ---------- hero ---------- */
+  .hero { border-top: 0; padding: 4.5rem 0 4rem; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 3rem; align-items: center; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .hero h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); line-height: 1.12; margin: 0 0 1.1rem; }
+  .hero h1 em { font-style: italic; color: var(--accento); }
+  .hero .azioni { margin-top: 1.8rem; display: flex; gap: .8rem; flex-wrap: wrap; }
+
+  /* score card del mockup */
+  .scorecard { background: var(--carta-2); border: 1px solid var(--linea); border-radius: 1rem; padding: 1.4rem; box-shadow: var(--ombra); }
+  .scorecard .testata { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1rem; }
+  .anello { width: 92px; height: 92px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    background: conic-gradient(var(--salvia) 0 263deg, var(--linea) 263deg 360deg); }
+  .anello > div { width: 72px; height: 72px; border-radius: 50%; background: var(--carta-2); display: grid; place-items: center; font-family: var(--serif); font-size: 1.35rem; font-weight: 700; }
+  .anello small { font-size: .62rem; display: block; text-align: center; color: var(--inchiostro-2); font-family: var(--sans); }
+  .scorecard .voce { display: flex; justify-content: space-between; gap: .8rem; padding: .42rem 0; border-top: 1px dashed var(--linea); font-size: .87rem; }
+  .scorecard .voce b.si { color: var(--salvia); } .scorecard .voce b.no { color: var(--accento); }
+  .scorecard figcaption { margin-top: .8rem; }
+
+  /* ---------- strip numeri ---------- */
+  .strip { border-top: 1px solid var(--linea); background: var(--carta-2); padding: 1.4rem 0; }
+  .strip .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; }
+  .strip b { display: block; font-family: var(--serif); font-size: 1.7rem; color: var(--accento); }
+  .strip span { font-size: .84rem; color: var(--inchiostro-2); }
+
+  /* ---------- griglie e card ---------- */
+  .griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.2rem; margin-top: 1.8rem; }
+  .card { background: var(--carta-2); border: 1px solid var(--linea); border-radius: .9rem; padding: 1.4rem; }
+  .card .passo { font-family: var(--serif); font-size: 2rem; color: var(--oro); line-height: 1; margin-bottom: .5rem; }
+  .card ul { margin: .6rem 0 0; padding-left: 1.1rem; } .card li { margin-bottom: .35rem; font-size: .93rem; color: var(--inchiostro-2); }
+
+  .evidenza { border-left: 3px solid var(--accento); padding-left: 1rem; }
+  .evidenza b { font-family: var(--serif); font-size: 1.55rem; display: block; }
+
+  /* ---------- tabella controlli ---------- */
+  .controlli { margin-top: 1.6rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.2rem; }
+  .gruppo-controlli { background: var(--carta-2); border: 1px solid var(--linea); border-radius: .9rem; padding: 1.1rem 1.3rem; }
+  .gruppo-controlli h3 { color: var(--accento); font-size: 1rem; }
+  .gruppo-controlli ul { list-style: none; margin: .4rem 0 0; padding: 0; }
+  .gruppo-controlli li { padding: .34rem 0; border-top: 1px dashed var(--linea); font-size: .9rem; display: flex; justify-content: space-between; gap: .6rem; }
+  .gruppo-controlli li span:last-child { color: var(--inchiostro-2); white-space: nowrap; font-size: .8rem; }
+
+  /* ---------- chat mockup ---------- */
+  .demo { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6rem; align-items: start; margin-top: 1.6rem; }
+  @media (max-width: 860px) { .demo { grid-template-columns: 1fr; } }
+  .chat { background: var(--carta-2); border: 1px solid var(--linea); border-radius: 1rem; padding: 1.1rem; box-shadow: var(--ombra); display: flex; flex-direction: column; gap: .55rem; }
+  .msg { max-width: 85%; padding: .55rem .85rem; border-radius: .8rem; font-size: .9rem; line-height: 1.45; }
+  .msg.bot { background: color-mix(in srgb, var(--salvia) 12%, var(--carta-2)); border: 1px solid color-mix(in srgb, var(--salvia) 30%, var(--linea)); align-self: flex-start; border-bottom-left-radius: .2rem; }
+  .msg.utente { background: color-mix(in srgb, var(--accento) 10%, var(--carta-2)); border: 1px solid color-mix(in srgb, var(--accento) 25%, var(--linea)); align-self: flex-end; border-bottom-right-radius: .2rem; }
+  .msg.sistema { align-self: center; font-size: .74rem; color: var(--inchiostro-2); background: none; padding: .1rem; }
+
+  /* ---------- prezzi ---------- */
+  .badge-ipotesi { display: inline-block; font-size: .68rem; font-weight: 750; letter-spacing: .05em; background: var(--oro); color: #fff; padding: .18rem .55rem; border-radius: .4rem; vertical-align: middle; }
+  .prezzo { font-family: var(--serif); font-size: 2rem; font-weight: 700; margin: .3rem 0 .6rem; }
+  .card.in-evidenza { border-color: var(--accento); box-shadow: var(--ombra); position: relative; }
+  .card.in-evidenza::before { content: "FASE PILOTA — parte da qui"; position: absolute; top: -0.7rem; left: 1rem; background: var(--accento); color: #fff; font-size: .68rem; font-weight: 750; letter-spacing: .04em; padding: .2rem .6rem; border-radius: .4rem; }
+
+  /* ---------- faq ---------- */
+  .faq details { border-top: 1px solid var(--linea); padding: .95rem 0; }
+  .faq details:last-child { border-bottom: 1px solid var(--linea); }
+  .faq summary { cursor: pointer; font-weight: 650; font-size: 1.02rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--serif); font-size: 1.3rem; color: var(--accento); flex: none; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { color: var(--inchiostro-2); max-width: 70ch; }
+
+  /* ---------- manifesto ---------- */
+  .manifesto { background: var(--inchiostro); color: var(--carta); }
+  .manifesto h2, .manifesto .eyebrow { color: var(--carta); }
+  .manifesto .eyebrow { color: var(--oro); }
+  .manifesto .griglia .card { background: color-mix(in srgb, var(--carta) 6%, transparent); border-color: color-mix(in srgb, var(--carta) 18%, transparent); color: var(--carta); }
+  .manifesto .card li, .manifesto .lead { color: color-mix(in srgb, var(--carta) 78%, transparent); }
+
+  /* ---------- cta finale ---------- */
+  .finale { text-align: center; }
+  .finale h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .finale .lead { margin: 0 auto; }
+  .riquadro-contatto { max-width: 640px; margin: 1.8rem auto 0; background: var(--carta-2); border: 1px dashed var(--linea); border-radius: .9rem; padding: 1.2rem; }
+
+  footer { padding: 2.4rem 0 3.2rem; font-size: .85rem; color: var(--inchiostro-2); border-top: 1px solid var(--linea); }
+  footer p { max-width: 78ch; }
+
+  /* ---------- overlay statistiche (?stats=1) ---------- */
+  #pannello-stats { position: fixed; right: .8rem; bottom: .8rem; z-index: 99; width: min(360px, 92vw); max-height: 70vh; overflow: auto; background: var(--carta-2); color: var(--inchiostro); border: 1px solid var(--accento); border-radius: .8rem; padding: 1rem; box-shadow: var(--ombra); font-size: .8rem; }
+  #pannello-stats h3 { margin: 0 0 .5rem; font-family: var(--sans); font-size: .9rem; }
+  #pannello-stats table { width: 100%; border-collapse: collapse; }
+  #pannello-stats td { padding: .18rem .3rem; border-top: 1px dashed var(--linea); }
+  #pannello-stats td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+  #pannello-stats button { margin: .6rem .4rem 0 0; font-size: .75rem; padding: .3rem .6rem; border-radius: .4rem; border: 1px solid var(--linea); background: var(--carta); color: var(--inchiostro); cursor: pointer; }
 </style>
 </head>
 <body>
 
+<div class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="#" data-track="nav-logo">Repl<b>ivy</b><span style="color:var(--accento)">.</span></a>
+    <nav class="principale" aria-label="Navigazione principale">
+      <a href="#problema" data-track="nav-problema">Il problema</a>
+      <a href="#metodo" data-track="nav-metodo">Metodo</a>
+      <a href="#dentro-audit" data-track="nav-audit">L’audit</a>
+      <a href="#assistente" data-track="nav-assistente">Assistente</a>
+      <a href="#prezzi" data-track="nav-prezzi">Prezzi</a>
+      <a href="#faq" data-track="nav-faq">FAQ</a>
+    </nav>
+    <a class="btn pieno" href="#contatto" data-track="cta-topbar">Audit gratuito</a>
+  </div>
+</div>
+
 <header class="hero">
   <div class="wrap">
-    <h1>Se un cliente chiede a ChatGPT, tu ci sei?</h1>
-    <p>Quando qualcuno chiede a un motore AI un consiglio su dove mangiare o da chi farsi tagliare
-    i capelli, la risposta nomina poche attività: quelle che i motori riescono a leggere e capire.
-    <strong>Replivy</strong> analizza come la tua attività appare a ChatGPT, Perplexity
-    e Gemini, sistema quello che non va e ti affianca un <strong>assistente AI</strong> che risponde
-    ai clienti e prende le prenotazioni — anche quando sei chiuso.</p>
-    <a class="cta" href="#audit">Richiedi l’audit gratuito</a>
-    <a class="cta secondaria" href="#come">Come funziona</a>
+    <div>
+      <p class="eyebrow">Visibilità AI + assistente clienti · attività locali italiane</p>
+      <h1>Se un cliente lo chiede a ChatGPT, la risposta <em>fa il tuo nome</em>?</h1>
+      <p class="lead">Sempre più persone non cercano: <strong>chiedono</strong>. «Qual è la migliore
+      trattoria qui vicino?», «un dentista in centro?». I motori AI rispondono facendo pochi nomi —
+      e tendono a raccomandare le attività che riescono a <strong>leggere e capire</strong>.
+      Replivy misura come appari ai motori AI, ti consegna le correzioni pronte da incollare e
+      aggiunge un assistente che risponde ai tuoi clienti anche quando sei chiuso.</p>
+      <div class="azioni">
+        <a class="btn pieno" href="#contatto" data-track="cta-hero">Richiedi l’audit gratuito</a>
+        <a class="btn vuoto" href="#metodo" data-track="cta-hero-metodo">Guarda il metodo</a>
+      </div>
+    </div>
+    <figure class="scorecard" aria-label="Esempio di risultato dell’audit">
+      <div class="testata">
+        <div class="anello" role="img" aria-label="Punteggio 73 su 100"><div>73<small>/100</small></div></div>
+        <div>
+          <h3 style="margin:0">AI Visibility Score</h3>
+          <p class="nota" style="margin:.2rem 0 0">Trattoria storica, Milano<br>audit reale · agosto 2026</p>
+        </div>
+      </div>
+      <div class="voce"><span>Title e descrizione</span><b class="si">✓ ok</b></div>
+      <div class="voce"><span>Telefono e indirizzo in chiaro</span><b class="si">✓ ok</b></div>
+      <div class="voce"><span>Sezione FAQ</span><b class="no">✗ assente</b></div>
+      <div class="voce"><span>Dati strutturati (JSON-LD)</span><b class="no">✗ assenti</b></div>
+      <div class="voce"><span>Crawler AI ammessi</span><b class="si">✓ ok</b></div>
+      <figcaption class="nota">Le due voci mancanti sono proprio quelle che i motori AI
+      citano più volentieri. Il report le consegna già pronte da incollare.</figcaption>
+    </figure>
   </div>
 </header>
 
+<div class="strip">
+  <div class="wrap">
+    <div><b>15</b><span>controlli per ogni audit</span></div>
+    <div><b>6</b><span>attività già analizzate a Milano</span></div>
+    <div><b>48 h</b><span>per ricevere il report</span></div>
+    <div><b>0</b><span>cookie e tracker di terzi su questo sito</span></div>
+  </div>
+</div>
+
 <section id="problema">
   <div class="wrap">
-    <h2>Il problema, in due righe</h2>
-    <p>Se un potenziale cliente chiede a un motore AI «qual è il miglior <em>[la tua categoria]</em>
-    a <em>[la tua città]</em>?» e la risposta non ti nomina, quel cliente va da un concorrente.
-    E i motori AI tendono a raccomandare le attività che riescono a <strong>leggere e
-    capire</strong> — dati strutturati, risposte alle domande frequenti, informazioni chiare.</p>
+    <p class="eyebrow">Il problema</p>
+    <h2>I tuoi clienti hanno smesso di cercare.<br>Adesso chiedono.</h2>
+    <p class="lead">Quando la domanda la riceve un motore AI, non c’è una pagina 2: la risposta
+    nomina due o tre attività e il resto non esiste. Le comparative italiane del 2026 arrivano a
+    dire che la maggior parte delle PMI non ha idea di come appare in queste risposte. Noi lo
+    abbiamo misurato sul campo, sito per sito.</p>
+    <div class="griglia">
+      <div class="card evidenza"><b>6 su 6</b> senza una sezione FAQ — la fonte che i motori AI
+        citano più volentieri quando consigliano un’attività.</div>
+      <div class="card evidenza"><b>3 su 6</b> senza dati strutturati (JSON-LD): per un motore AI
+        orari, indirizzo e servizi restano parole sparse.</div>
+      <div class="card evidenza"><b>71–86</b> i punteggi riscontrati su 100: nessun disastro, ma
+        nessuno sfrutta il proprio potenziale. Chi corregge per primo, esce per primo.</div>
+    </div>
+    <p class="nota" style="margin-top:1rem">Dati dai nostri primi 6 audit reali su attività di
+    Milano (ristorazione, sanità, fitness — agosto 2026). Non sono proiezioni: sono siti veri.</p>
   </div>
 </section>
 
-<section id="come">
+<section id="metodo">
   <div class="wrap">
-    <h2>Come funziona</h2>
+    <p class="eyebrow">Il metodo</p>
+    <h2>Tre passi, nessuna magia dichiarata.</h2>
+    <p class="lead">Non promettiamo classifiche: nessuno controlla le risposte dei motori AI.
+    Lavoriamo su ciò che è controllabile e misuriamo il resto.</p>
     <div class="griglia">
       <div class="card">
-        <h3>1. Audit di visibilità AI</h3>
-        <p>Analizziamo il tuo sito con 15 controlli specifici per i motori AI e ti diciamo, in un
-        report leggibile, cosa sistemare e in che ordine.</p>
+        <div class="passo">01</div>
+        <h3>Audit di visibilità AI</h3>
+        <p class="nota">Analizziamo il tuo sito con 15 controlli specifici per i motori AI e
+        testiamo a mano le domande vere («miglior pizzeria sui Navigli?») su ChatGPT, Perplexity
+        e Gemini, con screenshot.</p>
+        <ul>
+          <li>AI Visibility Score da 0 a 100</li>
+          <li>Report leggibile, correzioni in ordine di priorità</li>
+          <li>Chi viene raccomandato oggi al posto tuo</li>
+        </ul>
       </div>
       <div class="card">
-        <h3>2. Correzioni pronte da incollare</h3>
-        <p>Ti consegniamo il markup Schema.org già compilato per la tua attività e le FAQ da
-        pubblicare: il tuo webmaster (o noi) le incolla in dieci minuti.</p>
+        <div class="passo">02</div>
+        <h3>Correzioni pronte da incollare</h3>
+        <p class="nota">Niente compiti a casa: il report include il materiale già fatto, da girare
+        a chi gestisce il tuo sito.</p>
+        <ul>
+          <li>Markup Schema.org già compilato per la tua attività</li>
+          <li>FAQ redatte sulle domande reali dei tuoi clienti</li>
+          <li>Title, descrizioni e testi corretti dove serve</li>
+        </ul>
       </div>
       <div class="card">
-        <h3>3. Assistente AI per i clienti</h3>
-        <p>Un assistente che risponde su web e Telegram a orari, prezzi e prenotazioni, e ti
-        consegna nome e numero di ogni richiesta. Sempre con l’avviso trasparente che si sta
-        parlando con un’AI.</p>
+        <div class="passo">03</div>
+        <h3>Assistente AI per i clienti</h3>
+        <p class="nota">Quando iniziano ad arrivare richieste, c’è chi risponde: un assistente che
+        si dichiara sempre come AI e ti consegna ogni contatto.</p>
+        <ul>
+          <li>Risponde a orari, prezzi, prenotazioni — anche a mezzanotte</li>
+          <li>Ti consegna nome e numero di ogni richiesta</li>
+          <li>Passa a te la conversazione quando serve un umano</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="audit">
+<section id="dentro-audit">
   <div class="wrap">
-    <h2>Richiedi l’audit gratuito</h2>
-    <p>Nella fase pilota l’audit è <strong>gratuito e fatto a mano</strong>: ci mandi l’indirizzo del
-    tuo sito, ti rispondiamo con il report completo entro 48 ore. Nessun impegno.</p>
-    <p class="nota">[CANALE DI CONTATTO — DA ATTIVARE: modulo/email verranno collegati quando il
-    dominio sarà attivo. In fase pilota il contatto avviene direttamente con il fondatore.]</p>
+    <p class="eyebrow">Dentro l’audit</p>
+    <h2>15 controlli, pesati come pesano per i motori AI.</h2>
+    <p class="lead">Nessuna scatola nera: ecco esattamente cosa misuriamo e quanto vale ogni voce
+    sul punteggio. Gli stessi criteri li applichiamo a questa pagina — guarda pure il sorgente.</p>
+    <div class="controlli">
+      <div class="gruppo-controlli">
+        <h3>Identità &amp; contatto</h3>
+        <ul>
+          <li><span>Title descrittivo (attività + città)</span><span>8 pt</span></li>
+          <li><span>Meta description efficace</span><span>8 pt</span></li>
+          <li><span>Un solo H1 chiaro</span><span>6 pt</span></li>
+          <li><span>Telefono in chiaro nel testo</span><span>6 pt</span></li>
+          <li><span>Indirizzo in chiaro nel testo</span><span>6 pt</span></li>
+          <li><span>Lingua dichiarata</span><span>3 pt</span></li>
+        </ul>
+      </div>
+      <div class="gruppo-controlli">
+        <h3>Contenuto che l’AI cita</h3>
+        <ul>
+          <li><span>Dati strutturati JSON-LD (LocalBusiness)</span><span>14 pt</span></li>
+          <li><span>Sezione FAQ / domande frequenti</span><span>10 pt</span></li>
+          <li><span>Contenuto reale (≥ 300 parole)</span><span>7 pt</span></li>
+          <li><span>Tag Open Graph</span><span>4 pt</span></li>
+          <li><span>Testi alternativi sulle immagini</span><span>3 pt</span></li>
+        </ul>
+      </div>
+      <div class="gruppo-controlli">
+        <h3>Porte aperte ai crawler AI</h3>
+        <ul>
+          <li><span>GPTBot, ClaudeBot, PerplexityBot non bloccati</span><span>12 pt</span></li>
+          <li><span>HTTPS attivo</span><span>5 pt</span></li>
+          <li><span>Sitemap raggiungibile</span><span>4 pt</span></li>
+          <li><span>llms.txt (pratica GEO emergente)</span><span>4 pt</span></li>
+        </ul>
+        <p class="nota" style="margin:.8rem 0 0">Un robots.txt sbagliato può rendere un’attività
+        <strong>invisibile</strong> a tutti i motori AI in una riga. Lo controlliamo per primo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="assistente">
+  <div class="wrap">
+    <p class="eyebrow">L’assistente</p>
+    <h2>Chi risponde ai clienti quando tu non puoi?</h2>
+    <div class="demo">
+      <div>
+        <p class="lead">Le richieste arrivano quando arrivano: a serranda abbassata, nel pieno del
+        servizio, mentre hai le mani occupate — e chi non riceve risposta scrive al concorrente.
+        L’assistente
+        Replivy tiene la conversazione, raccoglie ciò che serve e ti consegna il contatto pronto:
+        a te resta solo la conferma.</p>
+        <ul style="padding-left:1.1rem">
+          <li><strong>Trasparente per legge e per scelta:</strong> si presenta sempre come AI
+          (art. 50 del Regolamento europeo sull’AI) e passa a un operatore su richiesta.</li>
+          <li><strong>Rispettoso dei dati:</strong> raccoglie solo nome e recapito; il cliente può
+          scrivere «cancella i miei dati» e la cancellazione è gestita (GDPR).</li>
+          <li><strong>Sul tuo sito da subito</strong>, sui canali di messaggistica a seguire.</li>
+          <li><strong>Ogni richiesta tracciata:</strong> niente foglietti, niente «richiamo dopo».</li>
+        </ul>
+      </div>
+      <div class="chat" role="img" aria-label="Esempio di conversazione con l’assistente">
+        <div class="msg sistema">⚠️ Stai parlando con un assistente AI — trasparenza ai sensi dell’art. 50 EU AI Act</div>
+        <div class="msg bot">Buonasera! Sono l’assistente AI della trattoria. Posso aiutarla con una prenotazione o un’informazione?</div>
+        <div class="msg utente">Siete aperti domenica a pranzo? Saremmo in 6</div>
+        <div class="msg bot">Domenica a pranzo siamo aperti dalle 12:30. Per 6 persone consiglio di prenotare: a che ora preferite?</div>
+        <div class="msg utente">Le 13</div>
+        <div class="msg bot">Perfetto. Mi lascia un nome e un numero di telefono? Il titolare confermerà il tavolo al più presto.</div>
+        <div class="msg utente">Giulia, 333 000 0000</div>
+        <div class="msg bot">Grazie Giulia! Richiesta registrata: domenica ore 13, 6 persone. Riceverà conferma a breve. 🍝</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="prezzi">
   <div class="wrap">
-    <h2>Prezzi <span class="badge-ipotesi">IPOTESI DA VALIDARE</span></h2>
-    <p class="nota">Questi prezzi sono ipotesi in corso di validazione con i primi clienti pilota
-    (vedi la nostra metodologia in docs/pricing-ipotesi.md). I clienti pilota della prima fase
-    non pagano nulla.</p>
-    <div class="griglia">
-      <div class="card">
-        <h3>Gratis</h3>
+    <p class="eyebrow">Prezzi</p>
+    <h2>Listino dichiarato per quello che è: <span class="badge-ipotesi">IPOTESI DA VALIDARE</span></h2>
+    <p class="lead">Siamo in fase pilota: i numeri qui sotto sono ipotesi che stiamo validando con
+    i primi clienti — e lo scriviamo, invece di fingerli definitivi. I clienti pilota non pagano
+    nulla e contribuiscono a definire il prezzo giusto.</p>
+    <div class="griglia" style="margin-top:2.2rem">
+      <div class="card in-evidenza">
+        <h3>Audit</h3>
         <div class="prezzo">0 €</div>
+        <p class="nota">Per sempre gratuito in fase pilota.</p>
         <ul>
-          <li>1 audit di visibilità AI</li>
+          <li>Audit completo di visibilità AI (15 controlli)</li>
+          <li>Test manuali su ChatGPT, Perplexity e Gemini con screenshot</li>
           <li>Report con priorità d’intervento</li>
-          <li>Schema.org di base da incollare</li>
+          <li>Schema.org di base già compilato, da incollare</li>
         </ul>
+        <p style="margin-top:1rem"><a class="btn pieno" href="#contatto" data-track="cta-prezzi-audit">Richiedilo ora</a></p>
       </div>
       <div class="card">
         <h3>Pro <span class="badge-ipotesi">IPOTESI</span></h3>
-        <div class="prezzo">~79–99 €/mese</div>
+        <div class="prezzo">~79–99 €<span style="font-size:1rem">/mese</span></div>
+        <p class="nota">In validazione con i pilota.</p>
         <ul>
-          <li>Assistente AI su web e Telegram</li>
-          <li>Lead e prenotazioni raccolti per te</li>
-          <li>Audit e correzioni ricorrenti</li>
+          <li>Assistente AI sul tuo sito, attivo 24/7</li>
+          <li>Lead e richieste di prenotazione consegnati con nome e numero</li>
+          <li>Audit e correzioni ricorrenti, test AI prima/dopo</li>
+          <li>Canali di messaggistica in arrivo</li>
         </ul>
       </div>
       <div class="card">
         <h3>Multi-sede</h3>
         <div class="prezzo">su misura</div>
+        <p class="nota">In roadmap.</p>
         <ul>
-          <li>Più sedi, più canali</li>
-          <li>In roadmap: vedi piano di crescita</li>
+          <li>Più sedi, più canali, report comparativi</li>
+          <li>Priorità di sviluppo guidata dai clienti attivi</li>
         </ul>
       </div>
+    </div>
+    <p class="nota" style="margin-top:1.2rem">Termine di paragone, verificato ad agosto 2026: i
+    receptionist AI anglosassoni partono da 49–79 $/mese, i centralini AI italiani da 34 €/mese,
+    la consulenza GEO in Italia da 800 €/mese. Replivy unisce le due cose a prezzo da tool.</p>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="wrap">
+    <p class="eyebrow">Domande frequenti</p>
+    <h2>Le risposte che daremmo a un amico al bar.</h2>
+    <div style="margin-top:1.6rem">
+      <details data-track="faq-cosa-e">
+        <summary>Che cos’è un audit di visibilità AI?</summary>
+        <p>È un’analisi in 15 controlli di come i motori AI (ChatGPT, Perplexity, Gemini) riescono
+        a leggere e capire il tuo sito: dati strutturati, FAQ, contatti in chiaro, accesso dei
+        crawler AI e altro. Il risultato è un punteggio da 0 a 100 e un report con le correzioni
+        in ordine di priorità — più il test a mano delle domande vere, con screenshot.</p>
+      </details>
+      <details data-track="faq-costo">
+        <summary>Quanto costa?</summary>
+        <p>Nella fase pilota l’audit è gratuito e i primi clienti pilota non pagano nulla. Il
+        listino successivo è dichiarato apertamente come ipotesi in corso di validazione: lo
+        definiamo con i clienti, non contro di loro.</p>
+      </details>
+      <details data-track="faq-garanzia">
+        <summary>Mi garantite che ChatGPT raccomanderà la mia attività?</summary>
+        <p>No — e ti consigliamo di diffidare di chiunque lo garantisca: nessuno controlla le
+        risposte dei motori AI. Lavoriamo su ciò che è controllabile (la leggibilità del tuo sito
+        per i motori) e misuriamo il prima/dopo con test documentati e ripetuti nel tempo.</p>
+      </details>
+      <details data-track="faq-trasparenza">
+        <summary>L’assistente AI si spaccia per una persona?</summary>
+        <p>Mai. Si presenta sempre come assistente AI, come richiede l’art. 50 del Regolamento
+        europeo sull’intelligenza artificiale, e su richiesta passa la conversazione a un
+        operatore umano. La fiducia dei tuoi clienti vale più di qualsiasi trucco.</p>
+      </details>
+      <details data-track="faq-dati">
+        <summary>Che dati raccogliete sui miei clienti?</summary>
+        <p>Il minimo necessario a gestire la richiesta: nome e recapito. Il cliente può ottenere
+        la cancellazione scrivendo semplicemente «cancella i miei dati» in chat, come previsto
+        dal GDPR. Niente profilazione, niente rivendita di dati.</p>
+      </details>
+      <details data-track="faq-tracciamento">
+        <summary>Questo sito mi sta tracciando?</summary>
+        <p>Niente cookie, niente Google Analytics, niente servizi di terze parti. Questa pagina
+        tiene solo statistiche anonime e aggregate (quante visite, fin dove si legge) che restano
+        nel browser: nessun dato personale la lascia. È lo stesso rispetto che applichiamo ai
+        tuoi clienti.</p>
+      </details>
+      <details data-track="faq-sito">
+        <summary>Devo rifare il sito o cambiare agenzia?</summary>
+        <p>No. Ti consegniamo correzioni pronte da incollare — markup Schema.org già compilato e
+        FAQ da pubblicare — che chi gestisce oggi il tuo sito applica in pochi minuti. Se non hai
+        nessuno che lo gestisce, possiamo occuparcene noi.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="wrap">
+    <p class="eyebrow">Perché fidarsi</p>
+    <h2>Piccoli, indipendenti, con le carte in tavola.</h2>
+    <p class="lead">Replivy è un progetto indipendente in bootstrap: cresce solo se i clienti ne
+    hanno un beneficio reale. Per questo alcune scelte sono scritte qui, in pubblico.</p>
+    <div class="griglia">
+      <div class="card">
+        <h3>Niente promesse invendibili</h3>
+        <p class="nota" style="color:inherit;opacity:.85">Non garantiamo posizionamenti: misuriamo,
+        correggiamo e ri-misuriamo. Se qualcosa è un’ipotesi, la etichettiamo come tale — prezzi
+        compresi.</p>
+      </div>
+      <div class="card">
+        <h3>L’AI si dichiara sempre</h3>
+        <p class="nota" style="color:inherit;opacity:.85">Ogni assistente Replivy dice di essere
+        un’AI al primo messaggio, prima ancora che la legge europea lo imponesse a tutti.</p>
+      </div>
+      <div class="card">
+        <h3>Coerenza dimostrabile</h3>
+        <p class="nota" style="color:inherit;opacity:.85">Questa pagina rispetta gli stessi criteri
+        che vendiamo: dati strutturati, FAQ, zero tracker di terzi. Il sorgente è lì da leggere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contatto" class="finale">
+  <div class="wrap">
+    <p class="eyebrow">Si parte da qui</p>
+    <h2>Richiedi l’audit gratuito.</h2>
+    <p class="lead">Ci mandi l’indirizzo del tuo sito, ricevi il report completo entro 48 ore:
+    punteggio, cosa sistemare, in che ordine, e il materiale già pronto da incollare.
+    Nessun impegno, nessuna telefonata a sorpresa.</p>
+    <div class="riquadro-contatto">
+      <p class="nota" style="margin:0">[CANALE DI CONTATTO — DA ATTIVARE: modulo ed email verranno
+      collegati con il dominio. In fase pilota il contatto avviene direttamente con il fondatore.]</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p>⚡ Replivy — GEO Discovery &amp; AI Dispatcher per attività locali.</p>
-    <p>Trasparenza: gli assistenti Replivy dichiarano sempre di essere un’intelligenza artificiale
-    (art. 50 EU AI Act). I dati raccolti servono solo a gestire le richieste dei clienti e possono
-    essere cancellati su semplice richiesta (GDPR).</p>
+    <p><span class="wordmark" style="font-size:1.1rem">Repl<b>ivy</b>.</span> — Visibilità sui
+    motori AI e assistente clienti per attività locali italiane.</p>
+    <p><strong>Trasparenza:</strong> gli assistenti Replivy dichiarano sempre di essere
+    un’intelligenza artificiale (art. 50 EU AI Act). I dati raccolti servono solo a gestire le
+    richieste dei clienti e possono essere cancellati su semplice richiesta (GDPR).</p>
+    <p><strong>Privacy di questa pagina:</strong> nessun cookie, nessun servizio di terze parti.
+    Statistiche anonime e aggregate (visite, profondità di lettura, clic) restano nel browser del
+    visitatore e non vengono trasmesse a nessuno.</p>
     <p class="nota">[RAGIONE SOCIALE E P.IVA — DA INSERIRE QUANDO DISPONIBILI]</p>
   </div>
 </footer>
+
+<script>
+/* ============================================================================
+   Replivy Analytics — first-party, anonima, senza cookie, senza terze parti.
+   - Aggregati salvati SOLO in localStorage del visitatore (nessun ID, nessun
+     dato personale, nessuna trasmissione).
+   - Il beacon verso un endpoint proprio è DORMIENTE (endpoint: null): si
+     attiverà dopo il primo cliente, per decisione del fondatore (31/08/2026).
+   - Debug per il fondatore: aprire la pagina con ?stats=1
+   ========================================================================== */
+(function () {
+  'use strict';
+  var CONFIG = { endpoint: null, chiave: 'replivy_stats_v1' };
+
+  function carica() {
+    try { return JSON.parse(localStorage.getItem(CONFIG.chiave)) || {}; }
+    catch (e) { return {}; }
+  }
+  var stats = carica();
+  stats.v = 1;
+  stats.pageviews = (stats.pageviews || 0) + 1;
+  stats.scroll = stats.scroll || {};
+  stats.dwell = stats.dwell || {};
+  stats.clicks = stats.clicks || {};
+  var salvaTimer = null;
+  function salva() {
+    clearTimeout(salvaTimer);
+    salvaTimer = setTimeout(function () {
+      try { localStorage.setItem(CONFIG.chiave, JSON.stringify(stats)); } catch (e) {}
+    }, 400);
+  }
+  salva();
+
+  /* --- profondità di scorrimento: fin dove si legge --- */
+  var soglie = [25, 50, 75, 100], raggiunte = {};
+  function suScroll() {
+    var h = document.documentElement;
+    var perc = Math.round(((h.scrollTop + innerHeight) / h.scrollHeight) * 100);
+    soglie.forEach(function (s) {
+      if (perc >= s && !raggiunte[s]) {
+        raggiunte[s] = true;
+        stats.scroll[s] = (stats.scroll[s] || 0) + 1;
+        salva();
+      }
+    });
+  }
+  addEventListener('scroll', suScroll, { passive: true });
+  suScroll();
+
+  /* --- tempo di lettura per sezione: dove ci si ferma di più --- */
+  var visibili = {};
+  if ('IntersectionObserver' in window) {
+    var oss = new IntersectionObserver(function (voci) {
+      voci.forEach(function (v) { visibili[v.target.id] = v.isIntersecting; });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('section[id], header.hero').forEach(function (el) {
+      if (!el.id) el.id = 'hero';
+      oss.observe(el);
+    });
+    setInterval(function () {
+      if (document.hidden) return;
+      var attive = false;
+      for (var id in visibili) {
+        if (visibili[id]) { stats.dwell[id] = (stats.dwell[id] || 0) + 1; attive = true; }
+      }
+      if (attive) salva();
+    }, 1000);
+  }
+
+  /* --- clic: cosa converte e cosa no --- */
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-track]');
+    if (!el) return;
+    var nome = el.getAttribute('data-track');
+    stats.clicks[nome] = (stats.clicks[nome] || 0) + 1;
+    salva();
+  });
+  document.querySelectorAll('.faq details[data-track]').forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) {
+        var nome = d.getAttribute('data-track') + '-aperta';
+        stats.clicks[nome] = (stats.clicks[nome] || 0) + 1;
+        salva();
+      }
+    });
+  });
+
+  /* --- beacon DORMIENTE: nessun invio finché endpoint è null --- */
+  addEventListener('pagehide', function () {
+    try { localStorage.setItem(CONFIG.chiave, JSON.stringify(stats)); } catch (e) {}
+    if (CONFIG.endpoint && navigator.sendBeacon) {
+      navigator.sendBeacon(CONFIG.endpoint, JSON.stringify(stats));
+    }
+  });
+
+  /* --- pannello per il fondatore: ?stats=1 --- */
+  if (/[?&]stats=1/.test(location.search)) {
+    var p = document.createElement('div');
+    p.id = 'pannello-stats';
+    function disegna() {
+      var s = carica();
+      var ctaTotali = 0;
+      Object.keys(s.clicks || {}).forEach(function (k) {
+        if (k.indexOf('cta-') === 0) ctaTotali += s.clicks[k];
+      });
+      var conv = s.pageviews ? Math.round((ctaTotali / s.pageviews) * 100) : 0;
+      var html = '<h3>📊 Replivy Analytics (solo su questo browser)</h3><table>';
+      html += '<tr><td><b>Visite (pageview)</b></td><td>' + (s.pageviews || 0) + '</td></tr>';
+      html += '<tr><td><b>Clic sulle CTA / conversione</b></td><td>' + ctaTotali + ' (' + conv + '%)</td></tr>';
+      [25, 50, 75, 100].forEach(function (sg) {
+        html += '<tr><td>Scroll ≥ ' + sg + '%</td><td>' + ((s.scroll || {})[sg] || 0) + '</td></tr>';
+      });
+      html += '<tr><td colspan="2"><b>Secondi di lettura per sezione</b></td></tr>';
+      Object.keys(s.dwell || {}).sort(function (a, b) { return s.dwell[b] - s.dwell[a]; })
+        .forEach(function (id) { html += '<tr><td>#' + id + '</td><td>' + s.dwell[id] + ' s</td></tr>'; });
+      html += '<tr><td colspan="2"><b>Clic per elemento</b></td></tr>';
+      Object.keys(s.clicks || {}).sort(function (a, b) { return s.clicks[b] - s.clicks[a]; })
+        .forEach(function (k) { html += '<tr><td>' + k + '</td><td>' + s.clicks[k] + '</td></tr>'; });
+      html += '</table>';
+      html += '<button id="stats-copia">Copia JSON</button><button id="stats-azzera">Azzera</button>';
+      html += '<p style="margin:.5rem 0 0;opacity:.7">Dati anonimi, solo di questo browser. Beacon: '
+        + (CONFIG.endpoint ? 'ATTIVO' : 'dormiente (0 invii)') + '</p>';
+      p.innerHTML = html;
+      p.querySelector('#stats-copia').onclick = function () {
+        try { navigator.clipboard.writeText(JSON.stringify(carica(), null, 2)); } catch (e) {}
+      };
+      p.querySelector('#stats-azzera').onclick = function () {
+        localStorage.removeItem(CONFIG.chiave);
+        stats = { v: 1, pageviews: 0, scroll: {}, dwell: {}, clicks: {} };
+        disegna();
+      };
+    }
+    disegna();
+    setInterval(disegna, 2000);
+    document.body.appendChild(p);
+  }
+})();
+</script>
 
 </body>
 </html>
