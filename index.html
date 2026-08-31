@@ -4,16 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Replivy — Visibilità AI e assistente clienti per attività locali</title>
-<meta name="description" content="Audit di visibilità AI in 15 controlli, correzioni pronte da incollare e un assistente che risponde ai clienti anche quando sei chiuso. Fase pilota gratuita.">
+<meta name="description" content="Audit di visibilità AI in 15 controlli, correzioni pronte da incollare e un assistente che risponde ai clienti anche quando sei chiuso. Audit iniziale gratuito.">
 <meta property="og:title" content="Replivy — Se un cliente lo chiede a ChatGPT, la risposta fa il tuo nome?">
-<meta property="og:description" content="Audit di visibilità AI in 15 controlli, correzioni pronte da incollare e un assistente che risponde ai clienti anche quando sei chiuso. Fase pilota gratuita.">
+<meta property="og:description" content="Audit di visibilità AI in 15 controlli, correzioni pronte da incollare e un assistente che risponde ai clienti anche quando sei chiuso. Audit iniziale gratuito.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
-<!-- NOTA INTERNA: pagina statica, ZERO risorse esterne (niente font, CDN, tracker di terzi).
-     I prezzi sono IPOTESI DA VALIDARE (docs/pricing-ipotesi.md) e sono etichettati come tali.
-     Le statistiche citate vengono SOLO dai 6 audit reali di Milano (reports/) e da docs/ricerca.md.
-     Analytics: first-party, anonima, aggregata, senza cookie; beacon DORMIENTE (endpoint: null),
-     da attivare solo dopo il primo cliente (decisione fondatore 31/08/2026). Debug: ?stats=1 -->
+<!-- Pagina statica autonoma: nessuna risorsa esterna, nessun cookie, nessun tracker di terze parti. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,7 +29,7 @@
     { "@type": "Question", "name": "Che cos’è un audit di visibilità AI?",
       "acceptedAnswer": { "@type": "Answer", "text": "È un’analisi in 15 controlli di come i motori AI (ChatGPT, Perplexity, Gemini) riescono a leggere e capire il sito di un’attività: dati strutturati, FAQ, contatti in chiaro, accesso dei crawler AI e altro. Il risultato è un punteggio da 0 a 100 e un report con le correzioni in ordine di priorità." } },
     { "@type": "Question", "name": "Quanto costa?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Nella fase pilota l’audit è gratuito e i primi clienti pilota non pagano nulla. Il listino successivo è dichiarato apertamente come ipotesi in corso di validazione." } },
+      "acceptedAnswer": { "@type": "Answer", "text": "L’audit iniziale è gratuito e senza impegno. Il piano Visibilità parte da 29 € al mese, il piano Pro con assistente AI incluso da 79 € al mese. Scegliendo il pagamento annuale, due mesi sono inclusi." } },
     { "@type": "Question", "name": "Mi garantite che ChatGPT raccomanderà la mia attività?",
       "acceptedAnswer": { "@type": "Answer", "text": "No, e diffida di chi lo garantisce: nessuno controlla le risposte dei motori AI. Lavoriamo su ciò che è controllabile — la leggibilità del sito per i motori — e misuriamo prima e dopo con test documentati." } },
     { "@type": "Question", "name": "L’assistente AI si spaccia per una persona?",
@@ -156,10 +152,12 @@
   .msg.sistema { align-self: center; font-size: .74rem; color: var(--inchiostro-2); background: none; padding: .1rem; }
 
   /* ---------- prezzi ---------- */
-  .badge-ipotesi { display: inline-block; font-size: .68rem; font-weight: 750; letter-spacing: .05em; background: var(--oro); color: #fff; padding: .18rem .55rem; border-radius: .4rem; vertical-align: middle; }
-  .prezzo { font-family: var(--serif); font-size: 2rem; font-weight: 700; margin: .3rem 0 .6rem; }
+  .chip { display: inline-block; font-size: .68rem; font-weight: 750; letter-spacing: .05em; background: var(--oro); color: #fff; padding: .18rem .55rem; border-radius: .4rem; vertical-align: middle; }
+  .prezzo { font-family: var(--serif); font-size: 2rem; font-weight: 700; margin: .3rem 0 .2rem; }
+  .prezzo-annuale { font-size: .86rem; color: var(--salvia); font-weight: 650; margin: 0 0 .6rem; }
+  #prezzi .griglia { grid-template-columns: repeat(auto-fit, minmax(222px, 1fr)); }
   .card.in-evidenza { border-color: var(--accento); box-shadow: var(--ombra); position: relative; }
-  .card.in-evidenza::before { content: "FASE PILOTA — parte da qui"; position: absolute; top: -0.7rem; left: 1rem; background: var(--accento); color: #fff; font-size: .68rem; font-weight: 750; letter-spacing: .04em; padding: .2rem .6rem; border-radius: .4rem; }
+  .card.in-evidenza::before { content: "CONSIGLIATO"; position: absolute; top: -0.7rem; left: 1rem; background: var(--accento); color: #fff; font-size: .68rem; font-weight: 750; letter-spacing: .04em; padding: .2rem .6rem; border-radius: .4rem; }
 
   /* ---------- faq ---------- */
   .faq details { border-top: 1px solid var(--linea); padding: .95rem 0; }
@@ -271,8 +269,8 @@
       <div class="card evidenza"><b>71–86</b> i punteggi riscontrati su 100: nessun disastro, ma
         nessuno sfrutta il proprio potenziale. Chi corregge per primo, esce per primo.</div>
     </div>
-    <p class="nota" style="margin-top:1rem">Dati dai nostri primi 6 audit reali su attività di
-    Milano (ristorazione, sanità, fitness — agosto 2026). Non sono proiezioni: sono siti veri.</p>
+    <p class="nota" style="margin-top:1rem">Dati da 6 audit reali su attività di Milano
+    (ristorazione, sanità, fitness — agosto 2026). Non sono proiezioni: sono siti veri.</p>
   </div>
 </section>
 
@@ -287,8 +285,8 @@
         <div class="passo">01</div>
         <h3>Audit di visibilità AI</h3>
         <p class="nota">Analizziamo il tuo sito con 15 controlli specifici per i motori AI e
-        testiamo a mano le domande vere («miglior pizzeria sui Navigli?») su ChatGPT, Perplexity
-        e Gemini, con screenshot.</p>
+        verifichiamo le domande reali dei clienti («miglior pizzeria sui Navigli?») su ChatGPT,
+        Perplexity e Gemini, documentando tutto con screenshot.</p>
         <ul>
           <li>AI Visibility Score da 0 a 100</li>
           <li>Report leggibile, correzioni in ordine di priorità</li>
@@ -401,67 +399,80 @@
 <section id="prezzi">
   <div class="wrap">
     <p class="eyebrow">Prezzi</p>
-    <h2>Listino dichiarato per quello che è: <span class="badge-ipotesi">IPOTESI DA VALIDARE</span></h2>
-    <p class="lead">Siamo in fase pilota: i numeri qui sotto sono ipotesi che stiamo validando con
-    i primi clienti — e lo scriviamo, invece di fingerli definitivi. I clienti pilota non pagano
-    nulla e contribuiscono a definire il prezzo giusto.</p>
+    <h2>Si parte gratis. Si cresce quando conviene.</h2>
+    <p class="lead">L’audit iniziale è gratuito e senza impegno: prima vedi cosa c’è da sistemare,
+    poi decidi. I piani sono a <strong>prezzo di lancio</strong>, senza vincoli di durata sul
+    mensile; con l’annuale <strong>due mesi sono inclusi</strong>.</p>
     <div class="griglia" style="margin-top:2.2rem">
-      <div class="card in-evidenza">
+      <div class="card">
         <h3>Audit</h3>
         <div class="prezzo">0 €</div>
-        <p class="nota">Per sempre gratuito in fase pilota.</p>
+        <p class="prezzo-annuale">Gratuito, senza impegno.</p>
         <ul>
           <li>Audit completo di visibilità AI (15 controlli)</li>
-          <li>Test manuali su ChatGPT, Perplexity e Gemini con screenshot</li>
+          <li>Verifica reale su ChatGPT, Perplexity e Gemini, con screenshot</li>
           <li>Report con priorità d’intervento</li>
           <li>Schema.org di base già compilato, da incollare</li>
         </ul>
         <p style="margin-top:1rem"><a class="btn pieno" href="#contatto" data-track="cta-prezzi-audit">Richiedilo ora</a></p>
       </div>
       <div class="card">
-        <h3>Pro <span class="badge-ipotesi">IPOTESI</span></h3>
-        <div class="prezzo">~79–99 €<span style="font-size:1rem">/mese</span></div>
-        <p class="nota">In validazione con i pilota.</p>
+        <h3>Visibilità <span class="chip">LANCIO</span></h3>
+        <div class="prezzo">29 €<span style="font-size:1rem">/mese</span></div>
+        <p class="prezzo-annuale">o 290 €/anno — 2 mesi inclusi</p>
         <ul>
+          <li>Audit ricorrente e monitoraggio del punteggio nel tempo</li>
+          <li>Correzioni sempre aggiornate: Schema.org, FAQ, contenuti</li>
+          <li>Verifiche periodiche sui motori AI, prima/dopo documentato</li>
+          <li>Report mensile in linguaggio chiaro</li>
+        </ul>
+      </div>
+      <div class="card in-evidenza">
+        <h3>Pro <span class="chip">LANCIO</span></h3>
+        <div class="prezzo">79 €<span style="font-size:1rem">/mese</span></div>
+        <p class="prezzo-annuale">o 790 €/anno — 2 mesi inclusi</p>
+        <ul>
+          <li>Tutto il piano Visibilità</li>
           <li>Assistente AI sul tuo sito, attivo 24/7</li>
           <li>Lead e richieste di prenotazione consegnati con nome e numero</li>
-          <li>Audit e correzioni ricorrenti, test AI prima/dopo</li>
           <li>Canali di messaggistica in arrivo</li>
         </ul>
+        <p style="margin-top:1rem"><a class="btn pieno" href="#contatto" data-track="cta-prezzi-pro">Parti dall’audit gratuito</a></p>
       </div>
       <div class="card">
         <h3>Multi-sede</h3>
         <div class="prezzo">su misura</div>
-        <p class="nota">In roadmap.</p>
+        <p class="prezzo-annuale">Per catene e gruppi.</p>
         <ul>
           <li>Più sedi, più canali, report comparativi</li>
-          <li>Priorità di sviluppo guidata dai clienti attivi</li>
+          <li>Referente dedicato e priorità di sviluppo</li>
         </ul>
       </div>
     </div>
-    <p class="nota" style="margin-top:1.2rem">Termine di paragone, verificato ad agosto 2026: i
-    receptionist AI anglosassoni partono da 49–79 $/mese, i centralini AI italiani da 34 €/mese,
-    la consulenza GEO in Italia da 800 €/mese. Replivy unisce le due cose a prezzo da tool.</p>
+    <p class="nota" style="margin-top:1.2rem">Per confronto, ad agosto 2026: i receptionist AI
+    internazionali partono da 49–79 $/mese, i centralini AI italiani da 34 €/mese (più canone
+    piattaforma), la consulenza GEO in Italia da 800 €/mese. Replivy unisce visibilità AI e
+    assistente in un unico piano, a prezzo da strumento.</p>
   </div>
 </section>
 
 <section id="faq" class="faq">
   <div class="wrap">
     <p class="eyebrow">Domande frequenti</p>
-    <h2>Le risposte che daremmo a un amico al bar.</h2>
+    <h2>Risposte dirette, senza giri di parole.</h2>
     <div style="margin-top:1.6rem">
       <details data-track="faq-cosa-e">
         <summary>Che cos’è un audit di visibilità AI?</summary>
         <p>È un’analisi in 15 controlli di come i motori AI (ChatGPT, Perplexity, Gemini) riescono
         a leggere e capire il tuo sito: dati strutturati, FAQ, contatti in chiaro, accesso dei
         crawler AI e altro. Il risultato è un punteggio da 0 a 100 e un report con le correzioni
-        in ordine di priorità — più il test a mano delle domande vere, con screenshot.</p>
+        in ordine di priorità — più la verifica delle domande reali sui motori, con screenshot.</p>
       </details>
       <details data-track="faq-costo">
         <summary>Quanto costa?</summary>
-        <p>Nella fase pilota l’audit è gratuito e i primi clienti pilota non pagano nulla. Il
-        listino successivo è dichiarato apertamente come ipotesi in corso di validazione: lo
-        definiamo con i clienti, non contro di loro.</p>
+        <p>L’audit iniziale è gratuito e senza impegno. Il piano Visibilità parte da 29 € al
+        mese, il piano Pro con assistente AI incluso da 79 € al mese. Scegliendo il pagamento
+        annuale, due mesi sono inclusi. Nessun vincolo di durata sul mensile.</p>
       </details>
       <details data-track="faq-garanzia">
         <summary>Mi garantite che ChatGPT raccomanderà la mia attività?</summary>
@@ -501,15 +512,15 @@
 <section class="manifesto">
   <div class="wrap">
     <p class="eyebrow">Perché fidarsi</p>
-    <h2>Piccoli, indipendenti, con le carte in tavola.</h2>
-    <p class="lead">Replivy è un progetto indipendente in bootstrap: cresce solo se i clienti ne
-    hanno un beneficio reale. Per questo alcune scelte sono scritte qui, in pubblico.</p>
+    <h2>Indipendenti, con le carte in tavola.</h2>
+    <p class="lead">Replivy è un servizio indipendente: cresce solo se i clienti ne hanno un
+    beneficio reale e misurabile. Per questo alcune regole sono scritte qui, in pubblico.</p>
     <div class="griglia">
       <div class="card">
         <h3>Niente promesse invendibili</h3>
-        <p class="nota" style="color:inherit;opacity:.85">Non garantiamo posizionamenti: misuriamo,
-        correggiamo e ri-misuriamo. Se qualcosa è un’ipotesi, la etichettiamo come tale — prezzi
-        compresi.</p>
+        <p class="nota" style="color:inherit;opacity:.85">Non garantiamo posizionamenti — nessuno
+        può farlo seriamente. Misuriamo, correggiamo e ri-misuriamo, e ti mostriamo le prove:
+        screenshot, punteggi, prima e dopo.</p>
       </div>
       <div class="card">
         <h3>L’AI si dichiara sempre</h3>
@@ -534,7 +545,7 @@
     Nessun impegno, nessuna telefonata a sorpresa.</p>
     <div class="riquadro-contatto">
       <p class="nota" style="margin:0">[CANALE DI CONTATTO — DA ATTIVARE: modulo ed email verranno
-      collegati con il dominio. In fase pilota il contatto avviene direttamente con il fondatore.]</p>
+      collegati con il dominio.]</p>
     </div>
   </div>
 </section>
@@ -558,9 +569,8 @@
    Replivy Analytics — first-party, anonima, senza cookie, senza terze parti.
    - Aggregati salvati SOLO in localStorage del visitatore (nessun ID, nessun
      dato personale, nessuna trasmissione).
-   - Il beacon verso un endpoint proprio è DORMIENTE (endpoint: null): si
-     attiverà dopo il primo cliente, per decisione del fondatore (31/08/2026).
-   - Debug per il fondatore: aprire la pagina con ?stats=1
+   - Il beacon verso un endpoint proprio è disattivato (endpoint: null).
+   - Pannello statistiche locale: aprire la pagina con ?stats=1
    ========================================================================== */
 (function () {
   'use strict';
@@ -639,7 +649,7 @@
     });
   });
 
-  /* --- beacon DORMIENTE: nessun invio finché endpoint è null --- */
+  /* --- beacon: nessun invio finché endpoint è null --- */
   addEventListener('pagehide', function () {
     try { localStorage.setItem(CONFIG.chiave, JSON.stringify(stats)); } catch (e) {}
     if (CONFIG.endpoint && navigator.sendBeacon) {
@@ -647,7 +657,7 @@
     }
   });
 
-  /* --- pannello per il fondatore: ?stats=1 --- */
+  /* --- pannello statistiche locale: ?stats=1 --- */
   if (/[?&]stats=1/.test(location.search)) {
     var p = document.createElement('div');
     p.id = 'pannello-stats';
