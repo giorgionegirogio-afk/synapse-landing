@@ -1,0 +1,27 @@
+# Replivy
+
+> Replivy aiuta le attività locali italiane a essere leggibili e citabili dai motori AI
+> (ChatGPT, Perplexity, Gemini) e le affianca con un assistente clienti conversazionale
+> che si dichiara sempre come intelligenza artificiale (art. 50 EU AI Act).
+
+## Servizi
+
+- Audit di visibilità AI: 15 controlli on-site (dati strutturati, FAQ, accesso dei crawler AI,
+  contatti in chiaro) con punteggio 0-100, report con priorità d'intervento e markup Schema.org
+  già compilato. L'audit iniziale è gratuito e senza impegno.
+- Piano Visibilità (29 €/mese o 290 €/anno): audit ricorrente, correzioni aggiornate,
+  verifiche periodiche sui motori AI con confronto prima/dopo documentato.
+- Piano Pro (79 €/mese o 790 €/anno): tutto il piano Visibilità più un assistente AI attivo
+  24/7 sul sito dell'attività, che risponde a orari, prezzi e prenotazioni e consegna i
+  contatti raccolti (nome e numero) al titolare.
+- Multi-sede: su misura per catene e gruppi.
+
+## Principi
+
+- L'assistente dichiara sempre di essere un'AI e passa a un operatore umano su richiesta.
+- Dati trattati al minimo necessario, cancellabili su richiesta (GDPR).
+- Nessuna garanzia di posizionamento: si misura, si corregge, si ri-misura con prove.
+
+## Collegamenti
+
+- Sito: https://giorgionegirogio-afk.github.io/synapse-landing/
